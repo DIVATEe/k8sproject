@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: multi-service-ingress
+  namespace: ingress-nginx
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host:  a1c5032008df4484a803f431b42955ea-1799243116.us-east-1.elb.amazonaws.com  
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: reactfe-service
+            port:
+              number: 80
+      - path: /api/frontend
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
+      - path: /api/products
+        pathType: Prefix
+        backend:
+          service:
+            name: product-service
+            port:
+              number: 80
+      - path: /api/orders
+        pathType: Prefix
+        backend:
+          service:
+            name: orders-service
+            port:
+              number: 80
